@@ -39,5 +39,13 @@ def predict():
     # Return the prediction as the API response
     return {'prediction': prediction}
 
+@app.route('/mailer', methods=['POST'])
+def mailer():
+    data = request.json
+    links = data.get('links', [])
+    websites = data.get('websites', [])
+    result = mails.mailer(links, websites)
+    return jsonify(result)
+
 if __name__ == '__main__':
     app.run()
